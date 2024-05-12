@@ -1,10 +1,11 @@
 package main
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
+	"net/http"
 
+	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 	"github.com/labstack/echo/v4"
 
@@ -30,7 +31,7 @@ func main() {
 	dbUser := "postgres"
 	dbName := "moneytransfer"
 	connStr := fmt.Sprintf("user=%s dbname=%s sslmode=disable", dbUser, dbName)	// should enable ssl later
-	dbConn, err := sql.Open("postgres", connStr)
+	dbConn, err := sqlx.Connect("postgres", connStr)
 	if err != nil {
 		log.Fatal("failed to open connection to database", err)
 	}
@@ -49,10 +50,13 @@ func main() {
 	// prepare echo
 	e := echo.New()
 
+	// prepare http client
+	httpClient := &http.Client{}
+
 	// prepare repository layer
 	postgresqlTransactionRepo := postgresqlRepo.NewTransactionRepository(dbConn)
 	mockapiAccountRepo := mockapiRepo.NewAccountRepository()
-	mockapiTransactionRepo := mockapiRepo.NewTransactionRepository(postgresqlTransactionRepo)
+	mockapiTransactionRepo := mockapiRepo.NewTransactionRepository(httpClient, postgresqlTransactionRepo)
 
 	// prepare service & handler layer
 	bankService := service.NewBankService(mockapiAccountRepo, mockapiTransactionRepo)

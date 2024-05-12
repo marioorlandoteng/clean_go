@@ -2,10 +2,11 @@ CREATE DATABASE moneytransfer;
 
 CREATE TABLE transaction (
   id SERIAL PRIMARY KEY,
-  from_user_id INT NOT NULL,
-  to_user_id INT NOT NULL,
+  ref_id VARCHAR(255) NOT NULL,
+  from_account_no BIGINT NOT NULL,
+  to_account_no BIGINT NOT NULL,
   amount INT NOT NULL,
-  status VARCHAR(32) NOT NULL,
-  created_at TIMESTAMP NOT NULL, 
-  updated_at TIMESTAMP NOT NULL
+  status INT NOT NULL,
+  created_at BIGINT NOT NULL, 
+  updated_at BIGINT NOT NULL
 );
