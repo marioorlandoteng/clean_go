@@ -1,4 +1,4 @@
-# Money Transfer API
+# Golang Clean Architecture
 
 ## Requirements
 Money Transfer APIs using Golang programming consist of 3 endpoints, namely:
@@ -7,7 +7,7 @@ Money Transfer APIs using Golang programming consist of 3 endpoints, namely:
 3. Transfer/Disbursement Callback URL endpoint that used to receive callback status of transfer from the bank.
 
 ## Project Structure
-This project uses clean architecture from https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html.
+This project use clean architecture from https://8thlight.com/blog/uncle-bob/2012/08/13/the-clean-architecture.html.
 The implementation is based on https://github.com/bxcodec/go-clean-arch.git
 
 It has four layers
